@@ -17,4 +17,10 @@
     <strong>Ready to create an app?</strong>
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
   </div>
+  <ion-item>
+    <ion-input [(ngModel)]="name" placeholder="Enter your name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-button (click)="saveName()">Save</ion-button>
+  </ion-item>
 </ion-content>
