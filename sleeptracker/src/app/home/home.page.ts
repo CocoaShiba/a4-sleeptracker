@@ -5,6 +5,9 @@ import { SleepData } from '../data/sleep-data';
 import { OvernightSleepData } from '../data/overnight-sleep-data';
 import { StanfordSleepinessData } from '../data/stanford-sleepiness-data';
 
+import { LocalNotifications } from '@capacitor/local-notifications';
+import { Preferences } from '@capacitor/preferences';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
