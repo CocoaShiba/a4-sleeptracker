@@ -13,14 +13,53 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
+  <!-- <div id="container">
     <strong>Ready to create an app?</strong>
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-  <ion-item>
+  </div> -->
+
+  <!-- <ion-item>Your favorite season:</ion-item> -->
+    <!-- <ion-picker>
+      <ion-picker-column>
+      <ion-picker-column-option value="" disabled="true">--</ion-picker-column-option>
+      <ion-picker-column-option value="Spring">Spring</ion-picker-column-option>
+      <ion-picker-column-option value="Summer">Summer</ion-picker-column-option>
+      <ion-picker-column-option value="Fall">Fall</ion-picker-column-option>
+      <ion-picker-column-option value="Winter">Winter</ion-picker-column-option>
+    </ion-picker-column>
+  </ion-picker> -->
+
+<ion-grid>
+  <ion-row>
+
+    <ion-col size="4">    
+      <ion-picker>
+        <ion-picker-column>
+          @for (num of hourNumbers; track num) {
+            <ion-picker-column-option value="{{num}}">{{num}}</ion-picker-column-option>
+          }
+        </ion-picker-column>
+      </ion-picker>
+    </ion-col>
+
+    <ion-col size="6">
+      <ion-picker>
+        <ion-picker-column>
+          @for (num of minuteNumbers; track num) {
+            <ion-picker-column-option value="{{num}}">{{num}}</ion-picker-column-option>
+          }
+        </ion-picker-column>
+      </ion-picker>
+    </ion-col>
+
+  </ion-row>
+</ion-grid>
+
+  <!-- <ion-item>
     <ion-input [(ngModel)]="name" placeholder="Enter your name"></ion-input>
   </ion-item>
   <ion-item>
     <ion-button (click)="saveName()">Save</ion-button>
-  </ion-item>
+  </ion-item> -->
+
 </ion-content>
