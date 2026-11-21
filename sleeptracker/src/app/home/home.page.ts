@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton, IonPicker, IonPickerColumn, IonPickerColumnOption, IonGrid, IonRow, IonCol, IonModal, IonButtons } from '@ionic/angular/standalone';
 import { SleepService } from '../services/sleep.service';
 import { SleepData } from '../data/sleep-data';
@@ -9,35 +9,44 @@ import { LocalNotifications } from '@capacitor/local-notifications';
 import { Preferences } from '@capacitor/preferences';
 import { FormsModule } from '@angular/forms';
 
+import { ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { ActionSheetController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular/standalone';
+
+import { DialogueModalComponent } from '../dialogue-modal/dialogue-modal.component';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonPicker, IonButton, IonInput, IonItem, IonHeader, IonToolbar, IonTitle, IonContent, FormsModule, IonPickerColumn, IonPickerColumnOption, IonGrid, IonRow, IonCol, IonModal, IonButtons],
+  imports: [IonPicker, IonButton, IonInput, IonItem, IonHeader, IonToolbar, IonTitle, IonContent, FormsModule, IonPickerColumn, IonPickerColumnOption, IonGrid, IonRow, IonCol, IonModal, IonButtons, DialogueModalComponent],
 })
 export class HomePage {
 
 	name:string = "";
-	hourNumbers: number[] = [];
-	minuteNumbers: number[] = [];
+	
+	// hourNumbers: number[] = [];
+	// minuteNumbers: number[] = [];
 
-	hourStart:number = 0;
-	minuteStart:number = 0;
+	// hourStart:number = 0;
+	// minuteStart:number = 0;
 
-	hourEnd:number = 0;
-	minuteEnd:number = 0;
+	// hourEnd:number = 0;
+	// minuteEnd:number = 0;
 
-  	constructor(public sleepService:SleepService) {
+  	constructor(public sleepService:SleepService, public modalController:ModalController) {
+	
 
-		for (var i = 1; i < 13; i++)
-		{
-			this.hourNumbers.push(i);
-		}
+		// for (var i = 1; i < 13; i++)
+		// {
+		// 	this.hourNumbers.push(i);
+		// }
 
-		for (var i = 0; i < 60; i++)
-		{
-			this.minuteNumbers.push(i);
-		}
+		// for (var i = 0; i < 60; i++)
+		// {
+		// 	this.minuteNumbers.push(i);
+		// }
 
 		Preferences.get({
 		key: 'name'
@@ -78,27 +87,39 @@ export class HomePage {
 		}
 	}
 
-	onHourStartChange(event: CustomEvent) {
-    	this.hourStart = event.detail.value;
-		console.log(this.hourStart);
-    // this.setDecorativeText();
-    // this.storage.set(this.seasonKey, this.pickerValue);
-  	}
+	// onHourStartChange(event: CustomEvent) {
+    // 	this.hourStart = event.detail.value;
+    // // this.setDecorativeText();
+    // // this.storage.set(this.seasonKey, this.pickerValue);
+  	// }
 
-	onMinuteStartChange(event: CustomEvent) {
-		this.minuteStart = event.detail.value;
-		console.log(this.minuteStart);
-	}
+	// onMinuteStartChange(event: CustomEvent) {
+	// 	this.minuteStart = event.detail.value;
+	// }
 
-	onHourEndChange(event: CustomEvent) {
-		this.hourEnd = event.detail.value;
-	}
+	// onHourEndChange(event: CustomEvent) {
+	// 	this.hourEnd = event.detail.value;
+	// }
 
-	onMinuteEndChange(event: CustomEvent) {
-		this.minuteEnd = event.detail.value;
-	}
+	// onMinuteEndChange(event: CustomEvent) {
+	// 	this.minuteEnd = event.detail.value;
+	// }
 
-	onSaveOvernightSleep() {
-		console.log(this.hourStart + this.minuteStart + ", " + this.hourEnd + this.minuteEnd);
+	// onSaveOvernightSleep() {
+	// 	console.log(this.hourStart + this.minuteStart + ", " + this.hourEnd + this.minuteEnd);
+	// }
+
+
+	presentModal() {
+		this.modalController.create({
+			component: DialogueModalComponent,
+			componentProps: {name: "IN4MATX 133"}
+		}).then((modal) => {
+			modal.present();
+			modal.onDidDismiss().then((data)=>{
+				console.log(data);
+				// “Hello from modal!”
+			})
+		});
 	}
 }

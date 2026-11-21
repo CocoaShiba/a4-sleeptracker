@@ -1,0 +1,88 @@
+<ion-content [fullscreen]="true">
+
+  <ion-grid>
+    <ion-row>
+
+      <ion-col size="3">    
+        <ion-picker>
+          <ion-picker-column (ionChange)="onHourStartChange($event)">
+            @for (num of hourNumbers; track num) {
+              <ion-picker-column-option value="{{num}}">{{num}}</ion-picker-column-option>
+            }
+          </ion-picker-column>
+        </ion-picker>
+      </ion-col>
+
+      <ion-col size="3">
+        <ion-picker>
+          <ion-picker-column (ionChange)="onMinuteStartChange($event)">
+            @for (num of minuteNumbers; track num) {
+              @if (num < 10)
+              {
+                <ion-picker-column-option value="{{num}}">0{{num}}</ion-picker-column-option>
+              }
+              @else
+              {
+                <ion-picker-column-option value="{{num}}">{{num}}</ion-picker-column-option>
+              }
+            }
+          </ion-picker-column>
+        </ion-picker>
+      </ion-col>
+
+      <ion-col size="3">    
+        <ion-picker>
+          <ion-picker-column>
+            <ion-picker-column-option value="AM">AM</ion-picker-column-option>
+            <ion-picker-column-option value="PM">PM</ion-picker-column-option>
+          </ion-picker-column>
+        </ion-picker>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col size="3">    
+        <ion-picker>
+          <ion-picker-column (ionChange)="onHourEndChange($event)">
+            @for (num of hourNumbers; track num) {
+              <ion-picker-column-option value="{{num}}">{{num}}</ion-picker-column-option>
+            }
+          </ion-picker-column>
+        </ion-picker>
+      </ion-col>
+
+      <ion-col size="3">
+        <ion-picker>
+          <ion-picker-column (ionChange)="onMinuteEndChange($event)">
+            @for (num of minuteNumbers; track num) {
+              @if (num < 10)
+              {
+                <ion-picker-column-option value="{{num}}">0{{num}}</ion-picker-column-option>
+              }
+              @else
+              {
+                <ion-picker-column-option value="{{num}}">{{num}}</ion-picker-column-option>
+              }
+            }
+          </ion-picker-column>
+        </ion-picker>
+      </ion-col>
+
+      <ion-col size="3">    
+        <ion-picker>
+          <ion-picker-column>
+            <ion-picker-column-option value="AM">AM</ion-picker-column-option>
+            <ion-picker-column-option value="PM">PM</ion-picker-column-option>
+          </ion-picker-column>
+        </ion-picker>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <ion-item>
+    <ion-button (click)="onSaveOvernightSleep()">Save Log</ion-button>
+  </ion-item>
+</ion-content>
