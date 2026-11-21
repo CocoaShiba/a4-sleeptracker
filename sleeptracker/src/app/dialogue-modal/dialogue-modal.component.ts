@@ -53,7 +53,6 @@ export class DialogueModalComponent  implements OnInit {
 
   onAMPMStartChange(event: CustomEvent) {
     this.isStartPM = event.detail.value;
-    console.log(this.isStartPM);
   }
 
 	onHourEndChange(event: CustomEvent) {
@@ -66,15 +65,15 @@ export class DialogueModalComponent  implements OnInit {
 
   onAMPMEndChange(event: CustomEvent) {
     this.isEndPM = event.detail.value;
-    console.log(this.isEndPM);
   }
 
 
 	onSaveOvernightSleep() {
-    console.log("here");
     var goToBed = new Date();
+    console.log(this.isStartPM);
     if (this.isStartPM)
     {
+      console.log("HERE");
       goToBed.setDate(goToBed.getDate() - 1); //set to yesterday
     }
     else
@@ -93,6 +92,8 @@ export class DialogueModalComponent  implements OnInit {
 		wakeUp.setHours(this.hourEnd, this.minuteEnd, 0); //1:03am
     if (this.isEndPM)
     {
+      console.log("ADDING 12 TO END");
+      console.log(this.isEndPM);
       wakeUp = new Date(wakeUp.getTime() + this.twelveHoursInMs);
     }
 
