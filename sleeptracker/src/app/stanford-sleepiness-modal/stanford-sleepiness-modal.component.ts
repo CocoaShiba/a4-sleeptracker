@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton, IonPicker, IonPickerColumn, IonPickerColumnOption, IonGrid, IonRow, IonCol, IonModal, IonButtons, IonRange, IonDatetime, IonDatetimeButton, IonLabel} from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { ModalController } from '@ionic/angular/standalone';
-import { OvernightSleepData } from '../data/overnight-sleep-data';
 import { SleepService } from '../services/sleep.service';
 import { StanfordSleepinessData } from '../data/stanford-sleepiness-data';
 import { AlertController } from '@ionic/angular';
@@ -30,23 +29,20 @@ export class StanfordSleepinessModalComponent  implements OnInit {
 
   ngOnInit() {}
 
-  onSleepinessChange(event: CustomEvent) {
+  onSleepinessChange(event: CustomEvent) { //When user changes stanford sleepiness value
     this.stanfordSleepinessValue = event.detail.value;
   }
 
-  onDateChange(event: CustomEvent) {
+  onDateChange(event: CustomEvent) { //When user changes input time
     var string:string = event.detail.value;
 
     var hour:number = Number(string.substring(string.length - 8, string.length - 6));
     var minute:number = Number(string.substring(string.length - 5, string.length - 3));
 
     this.dateValue.setHours(hour, minute);
-    //console.log(string);
-    //this.dateValue.setHours(string.substring(string.length - 8, string.length))
   }
   
-  onSaveSleepiness() {
-    //console.log(this.dateValue);
+  onSaveSleepiness() { //When user clicks "save log"
     var stanfordSleepinessData:StanfordSleepinessData = new StanfordSleepinessData(this.stanfordSleepinessValue, this.dateValue);
 
     var rightNow:Date = new Date();
@@ -58,28 +54,22 @@ export class StanfordSleepinessModalComponent  implements OnInit {
     {
       this.alertController.create({
         header: 'Are you sure?',
-        //subHeader: 'Subtitle',
         message: 'You have input a time in the future. Is this correct?',
         buttons: [
-        {
-          text: 'Cancel',
-          role : 'cancel',
-          handler: () => {
-            // console.log('Cancel!');
-            //this.sleepDate.setDate(this.sleepDate.getDate() + 1);
-            // this.sleepService.logOvernightData(overnightSleepData);
-            // this.modalController.dismiss();
+          {
+            text: 'Cancel',
+            role : 'cancel',
+            handler: () => {
+            },
           },
-        },
-        {
-          text: 'Confirm',
-          handler: () => {
-            //console.log('Confirmed!');
-            this.sleepService.logSleepinessData(stanfordSleepinessData);
+          {
+            text: 'Confirm',
+            handler: () => {
+              this.sleepService.logSleepinessData(stanfordSleepinessData);
 
-            this.modalController.dismiss();
+              this.modalController.dismiss();
+            },
           },
-        },
         ],
       }).then((alert) => {
         alert.present();
@@ -89,28 +79,22 @@ export class StanfordSleepinessModalComponent  implements OnInit {
     {
       this.alertController.create({
         header: 'Are you sure?',
-        //subHeader: 'Subtitle',
         message: 'You have input a time more than 12 hours ago. Is this correct?',
         buttons: [
-        {
-          text: 'Cancel',
-          role : 'cancel',
-          handler: () => {
-            // console.log('Cancel!');
-            //this.sleepDate.setDate(this.sleepDate.getDate() + 1);
-            // this.sleepService.logOvernightData(overnightSleepData);
-            // this.modalController.dismiss();
+          {
+            text: 'Cancel',
+            role : 'cancel',
+            handler: () => {
+            },
           },
-        },
-        {
-          text: 'Confirm',
-          handler: () => {
-            //console.log('Confirmed!');
-            this.sleepService.logSleepinessData(stanfordSleepinessData);
+          {
+            text: 'Confirm',
+            handler: () => {
+              this.sleepService.logSleepinessData(stanfordSleepinessData);
 
-            this.modalController.dismiss();
+              this.modalController.dismiss();
+            },
           },
-        },
         ],
       }).then((alert) => {
         alert.present();
@@ -121,13 +105,9 @@ export class StanfordSleepinessModalComponent  implements OnInit {
       this.sleepService.logSleepinessData(stanfordSleepinessData);
       this.modalController.dismiss();
     }
-
-    // this.sleepService.logSleepinessData(stanfordSleepinessData);
-
-    // this.modalController.dismiss();
   }
 
-  onCancel() {
+  onCancel() { //When user clicks "cancel"
     this.modalController.dismiss();
   }
 

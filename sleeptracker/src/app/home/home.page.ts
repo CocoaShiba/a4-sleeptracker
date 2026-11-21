@@ -2,17 +2,10 @@ import { Component, inject } from '@angular/core';
 import { IonHeader, IonFooter, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton, IonPicker, IonPickerColumn, IonPickerColumnOption, IonGrid, IonRow, IonCol, IonModal, 
 		 IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonIcon} from '@ionic/angular/standalone';
 import { SleepService } from '../services/sleep.service';
-import { SleepData } from '../data/sleep-data';
-import { OvernightSleepData } from '../data/overnight-sleep-data';
-import { StanfordSleepinessData } from '../data/stanford-sleepiness-data';
 
-import { LocalNotifications } from '@capacitor/local-notifications';
-import { Preferences } from '@capacitor/preferences';
 import { FormsModule } from '@angular/forms';
 
-import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
-import { ActionSheetController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
@@ -72,40 +65,6 @@ export class HomePage {
 		return SleepService.AllSleepData;
 	}
 
-	get AllOvernightData() {
-		return SleepService.AllOvernightData;
-	}
-
-	get AllSleepinessData() {
-		return SleepService.AllSleepinessData;
-	}
-
-	async save() {
-		console.log(this.AllSleepinessData[0].loggedAt.getHours().toString());
-		try {
-			await Preferences.set({
-				key: '1',
-				value: this.AllSleepinessData[0].loggedAt.getHours().toString()
-			});
-		} catch (e) {
-			console.log(e);
-		}
-	}
-
-
-	// async shareStuff () {
-	// 	// try/catch because error is thrown if user cancells sharing operation
-	// 	try {
-	// 	await Share.share({
-	// 		title: 'Share coordinates',
-	// 		text: 'Just in case you wanted to know, these are my current coordinates. Perhaps this is an emergency location sharing app idk. My current coordinates are',
-	// 		dialogTitle: 'Share my coordinates',
-	// 	});
-	// 	} catch (e) {
-	// 	console.log(e);
-	// 	}
-	// }
-
 	presentOvernightSleepModal() {
 		this.modalController.create({
 			component: DialogueModalComponent,
@@ -113,8 +72,6 @@ export class HomePage {
 		}).then((modal) => {
 			modal.present();
 			modal.onDidDismiss().then(()=>{
-				//console.log(this.allSleepData);
-				// “Hello from modal!”
 			})
 		});
 	}
@@ -126,8 +83,6 @@ export class HomePage {
 		}).then((modal) => {
 			modal.present();
 			modal.onDidDismiss().then(()=>{
-				//console.log(this.allSleepData);
-				// “Hello from modal!”
 			})
 		});
 	}

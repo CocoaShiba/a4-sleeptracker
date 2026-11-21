@@ -19,14 +19,4 @@ export class SleepData {
 	dateString():string {
 		return "On " + this.loggedAt.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'});
 	}
-
-	// get overnightSleepStartTime() {
-	// 	return "";
-	// }
-
-	// get overnightSleepEndTime() {
-	// 	return "";
-	// }
-
-
 }

@@ -19,39 +19,16 @@ export class DialogueModalComponent  implements OnInit {
   sleepDate: Date;
   wakeDate: Date;
 
-  alreadySetToYesterdayFlag:boolean = false;
-  // hourNumbers: number[] = [];
-	// minuteNumbers: number[] = [];
-
-	// hourStart:number = 0;
-	// minuteStart:number = 0;
-  // startAMPM:string = "AM";
-
-	// hourEnd:number = 0;
-	// minuteEnd:number = 0;
-  // endAMPM:string = "AM";
-
-
   constructor(public modalController:ModalController, public sleepService:SleepService, public alertController:AlertController) {
     this.sleepDate = new Date();
     this.sleepDate.setHours(22);
     this.sleepDate.setMinutes(0);
     this.wakeDate = new Date();
-    this.alreadySetToYesterdayFlag = true;
-    // for (var i = 1; i < 12; i++)
-    // {
-    //   this.hourNumbers.push(i);
-    // }
-
-    // for (var i = 0; i < 60; i++)
-    // {
-    //   this.minuteNumbers.push(i);
-    // }
   }
 
   ngOnInit() {}
 
-  onSleepChange(event: CustomEvent) {
+  onSleepChange(event: CustomEvent) { //When user changes sleep time
     var string:string = event.detail.value;
 
     var hour:number = Number(string.substring(0, 2));
@@ -60,7 +37,7 @@ export class DialogueModalComponent  implements OnInit {
     this.sleepDate.setHours(hour, minute);
   }
 
-  onWakeChange(event: CustomEvent) {
+  onWakeChange(event: CustomEvent) { //When user changes wake time
     var string:string = event.detail.value;
 
     var hour:number = Number(string.substring(string.length - 8, string.length - 6));
@@ -72,7 +49,7 @@ export class DialogueModalComponent  implements OnInit {
     this.wakeDate.setHours(hour, minute);
   }
 
-	onSaveOvernightSleep() {
+	onSaveOvernightSleep() { //When user clicks "save log"
     if (this.sleepDate.getHours() >= 12) //User slept at PM yesterday; set day to yesterday
     {
       this.sleepDate.setDate(this.sleepDate.getDate() - 1);
@@ -80,59 +57,39 @@ export class DialogueModalComponent  implements OnInit {
 
     var overnightSleepData:OvernightSleepData = new OvernightSleepData(this.sleepDate, this.wakeDate)
     
-    // console.log("total slept time :" + overnightSleepData.totalTimeSleptMinutes);
     if (overnightSleepData.totalTimeSleptMinutes > 960) { //Are you sure you slept for over 16 hours?
 
         this.alertController.create({
         header: 'Are you sure?',
-        //subHeader: 'Subtitle',
         message: 'You have slept for over 16 hours. Is this correct?',
         buttons: [
-        {
-          text: 'Cancel',
-          role : 'cancel',
-          handler: () => {
-            // console.log('Cancel!');
-            this.sleepDate.setDate(this.sleepDate.getDate() + 1);
-            // this.sleepService.logOvernightData(overnightSleepData);
-            // this.modalController.dismiss();
+          {
+            text: 'Cancel',
+            role : 'cancel',
+            handler: () => {
+              this.sleepDate.setDate(this.sleepDate.getDate() + 1);
+            },
           },
-        },
-        {
-          text: 'Confirm',
-          handler: () => {
-            //console.log('Confirmed!');
-            this.sleepService.logOvernightData(overnightSleepData);
-            this.modalController.dismiss();
+          {
+            text: 'Confirm',
+            handler: () => {
+              this.sleepService.logOvernightData(overnightSleepData);
+              this.modalController.dismiss();
+            },
           },
-        },
         ],
         }).then((alert) => {
           alert.present();
         });
-      
     }
-    else
+    else //No errors found in user input; save as normal
     {
       this.sleepService.logOvernightData(overnightSleepData);
       this.modalController.dismiss();
     }
-
-    //this.sleepService.logOvernightData(overnightSleepData);
-
-    // this.hourStart = 0;
-    // this.minuteStart = 0;
-    // this.startAMPM = "AM";
-
-    // this.hourEnd = 0;
-    // this.minuteEnd = 0;
-    // this.endAMPM = "AM";
-
-    //this.modalController.dismiss();
 	}
 
-
-  onCancel() {
+  onCancel() { //When user clicks "cancel"
     this.modalController.dismiss();
   }
 

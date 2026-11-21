@@ -27,45 +27,6 @@ export class StanfordSleepinessData extends SleepData {
 		return this.loggedValue;
 	}
 
-	// override get sleepinessTime() {
-	// 	if (this.loggedAt == null)
-	// 	{
-	// 		console.log("sfsdfdssdfsd");
-	// 	}
-	// 	return this.loggedAt.getDay().toString();
-	// }
-	// override dateString():string {
-	// 	return this.loggedAt.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric'});
-	// }
-
-	// override get sleepinessTime() {
-	// 	var line:string = "";
-
-	// 	var hours:number = this.loggedAt.getHours();
-	// 	// console.log(hours);
-	// 	var AMPM:string = "am";
-	// 	if (hours > 12)
-	// 	{
-	// 		hours -= 12;
-	// 		AMPM = "pm";
-	// 	}
-	// 	else if (hours == 12)
-	// 	{
-	// 		AMPM = "pm";
-	// 	}
-
-	// 	// if (this.sleepEnd.getMinutes() < 10)
-	// 	// {
-	// 	// 	line = `${hours}:0${this.sleepEnd.getMinutes().toString()}${AMPM}`
-	// 	// }
-	// 	// else
-	// 	// {
-	// 	// 	line = `${hours}:${this.sleepEnd.getMinutes().toString()}${AMPM}`
-	// 	// }
-	// 	line = `${hours}:${this.loggedAt.getMinutes().toString()}${AMPM}`
-	// 	return line;
-	// }
-
 	override summaryString():string {
 		return this.loggedValue + ": " + StanfordSleepinessData.ScaleValues[this.loggedValue];
 	}
