@@ -17,7 +17,6 @@
   <h1>Good morning</h1>
 
 
-  
 
   @for (log of allSleepData; track $index)
   {
@@ -28,7 +27,7 @@
       {
         <ion-card-subtitle>You felt:</ion-card-subtitle>
       }
-      @else 
+      @else if (log.kind == "overnightSleep")
       {
         <ion-card-subtitle>You slept for:</ion-card-subtitle>
       }
@@ -37,20 +36,19 @@
 
     @if (log.kind == "stanfordSleepiness")
     {
-
+      <ion-card-content>
+        <p>{{log.dateString()}}</p>
+      </ion-card-content>
     }
-    @else
+    @else if (log.kind == "overnightSleep")
     {
       <ion-card-content>
-        Between {{log.start}} and {{log.end}},
         <p>{{log.dateString()}}</p>
       </ion-card-content>
     }
   </ion-card>
   }
 
-
-  
 
   <!-- <ion-item>
     <ion-button (click)="onSaveOvernightSleep()">Save Log</ion-button>

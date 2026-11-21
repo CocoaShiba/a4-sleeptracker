@@ -17,14 +17,18 @@ export class SleepData {
 	}
 
 	dateString():string {
-		return this.loggedAt.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+		return this.loggedAt.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric'});
 	}
 
-	get start() {
-		return "";
-	}
+	// get overnightSleepStartTime() {
+	// 	return "";
+	// }
 
-	get end() {
-		return "";
+	// get overnightSleepEndTime() {
+	// 	return "";
+	// }
+
+	get sleepinessTime() {
+		return "aaaaa";
 	}
 }

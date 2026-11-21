@@ -14,7 +14,7 @@ import { StanfordSleepinessData } from '../data/stanford-sleepiness-data';
 })
 export class StanfordSleepinessModalComponent  implements OnInit {
 
-  stanfordSleepinessValue:number = 0;
+  stanfordSleepinessValue:number = 1;
   dateValue:Date;
 
   stanfordSleepinessScales: string[] = [""];
@@ -30,7 +30,7 @@ export class StanfordSleepinessModalComponent  implements OnInit {
   ngOnInit() {}
 
   onSleepinessChange(event: CustomEvent) {
-    this.stanfordSleepinessValue = event.detail.value;
+    this.stanfordSleepinessValue = 
   }
 
   onDateChange(event: CustomEvent) {
@@ -38,6 +38,7 @@ export class StanfordSleepinessModalComponent  implements OnInit {
   }
   
   onSaveSleepiness() {
+    console.log(this.dateValue);
     var stanfordSleepinessData:StanfordSleepinessData = new StanfordSleepinessData(this.stanfordSleepinessValue, this.dateValue);
     this.sleepService.logSleepinessData(stanfordSleepinessData);
 

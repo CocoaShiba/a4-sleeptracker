@@ -97,6 +97,7 @@ export class DialogueModalComponent  implements OnInit {
     }
 
     var overnightSleepData:OvernightSleepData = new OvernightSleepData(goToBed, wakeUp)
+    console.log(goToBed);
     this.sleepService.logOvernightData(overnightSleepData);
 
     this.hourStart = 0;

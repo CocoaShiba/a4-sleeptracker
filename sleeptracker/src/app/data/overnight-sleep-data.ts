@@ -24,61 +24,62 @@ export class OvernightSleepData extends SleepData {
 	}
 
 	override dateString():string {
-		return "Night of " + this.sleepStart.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+		return "Between " + this.sleepStart.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' })
+		 + " and " + this.sleepEnd.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
 	}
 
-	override get start() {
-		var line:string = "";
+	// override get overnightSleepStartTime() {
+	// 	var line:string = "";
 
-		var hours:number = this.sleepStart.getHours();
-		var AMPM:string = "am";
-		if (hours > 12)
-		{
-			hours -= 12;
-			AMPM = "pm";
-		}
-		else if (hours == 0)
-		{
-			hours = 12;
-		}
+	// 	var hours:number = this.sleepStart.getHours();
+	// 	var AMPM:string = "am";
+	// 	if (hours > 12)
+	// 	{
+	// 		hours -= 12;
+	// 		AMPM = "pm";
+	// 	}
+	// 	else if (hours == 0)
+	// 	{
+	// 		hours = 12;
+	// 	}
 
-		if (this.sleepStart.getMinutes() < 10)
-		{
-			line = `${hours}:0${this.sleepStart.getMinutes().toString()}${AMPM}`
-		}
-		else
-		{
-			line = `${hours}:${this.sleepStart.getMinutes().toString()}${AMPM}`
-		}
+	// 	if (this.sleepStart.getMinutes() < 10)
+	// 	{
+	// 		line = `${hours}:0${this.sleepStart.getMinutes().toString()}${AMPM}`
+	// 	}
+	// 	else
+	// 	{
+	// 		line = `${hours}:${this.sleepStart.getMinutes().toString()}${AMPM}`
+	// 	}
 		
-		return line;
-	}
+	// 	return line;
+	// }
 
-	override get end() {
-		var line:string = "";
+	// override get overnightSleepEndTime() {
+	// 	var line:string = "";
 
-		var hours:number = this.sleepEnd.getHours();
-		// console.log(hours);
-		var AMPM:string = "am";
-		if (hours > 12)
-		{
-			hours -= 12;
-			AMPM = "pm";
-		}
-		else if (hours == 12)
-		{
-			AMPM = "pm";
-		}
+	// 	var hours:number = this.sleepEnd.getHours();
+	// 	// console.log(hours);
+	// 	var AMPM:string = "am";
+	// 	if (hours > 12)
+	// 	{
+	// 		hours -= 12;
+	// 		AMPM = "pm";
+	// 	}
+	// 	else if (hours == 12)
+	// 	{
+	// 		AMPM = "pm";
+	// 	}
 
-		if (this.sleepEnd.getMinutes() < 10)
-		{
-			line = `${hours}:0${this.sleepEnd.getMinutes().toString()}${AMPM}`
-		}
-		else
-		{
-			line = `${hours}:${this.sleepEnd.getMinutes().toString()}${AMPM}`
-		}
+	// 	if (this.sleepEnd.getMinutes() < 10)
+	// 	{
+	// 		line = `${hours}:0${this.sleepEnd.getMinutes().toString()}${AMPM}`
+	// 	}
+	// 	else
+	// 	{
+	// 		line = `${hours}:${this.sleepEnd.getMinutes().toString()}${AMPM}`
+	// 	}
 
-		return line;
-	}
+	// 	return line;
+	// }
 }
