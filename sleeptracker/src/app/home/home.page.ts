@@ -14,6 +14,7 @@ import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular/standalone';
+import { Share } from '@capacitor/share';
 
 import { DialogueModalComponent } from '../dialogue-modal/dialogue-modal.component';
 import { StanfordSleepinessModalComponent } from '../stanford-sleepiness-modal/stanford-sleepiness-modal.component';
@@ -62,10 +63,23 @@ export class HomePage {
 		try {
 		await Preferences.set({
 			key: 'name',
-			value: this.name,
+			value: "asd"
 		});
 		} catch (e)
 		{
+		console.log(e);
+		}
+	}
+
+	async shareStuff () {
+		// try/catch because error is thrown if user cancells sharing operation
+		try {
+		await Share.share({
+			title: 'Share coordinates',
+			text: 'Just in case you wanted to know, these are my current coordinates. Perhaps this is an emergency location sharing app idk. My current coordinates are',
+			dialogTitle: 'Share my coordinates',
+		});
+		} catch (e) {
 		console.log(e);
 		}
 	}
