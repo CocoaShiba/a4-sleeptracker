@@ -92,7 +92,7 @@ export class DialogueModalComponent  implements OnInit {
 	}
 
 
-  dismiss() {
+  onCancel() {
     this.modalController.dismiss();
   }
 

@@ -84,7 +84,17 @@
     </ion-row>
   </ion-grid>
 
-  <ion-item>
-    <ion-button (click)="onSaveOvernightSleep()">Save Log</ion-button>
-  </ion-item>
+  <ion-grid>
+    <ion-row>
+
+      <ion-item>
+        <ion-button (click)="onCancel()">Cancel</ion-button>
+      </ion-item>
+
+      <ion-item>
+        <ion-button (click)="onSaveOvernightSleep()">Save Log</ion-button>
+      </ion-item>
+
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -13,94 +13,28 @@
     </ion-toolbar>
   </ion-header> -->
 
-  <!-- <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div> -->
+
+    <h1>Good morning</h1>
+
+
   
-  <ion-button expand="full" color="primary" (click)="presentModal()">Show Modal Example</ion-button>
 
-  <!-- <ion-grid>
-    <ion-row>
+  @for (log of allSleepData; track $index)
+  {
+    <ion-card>
+    <ion-card-header>
+      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    </ion-card-header>
 
-      <ion-col size="3">    
-        <ion-picker>
-          <ion-picker-column (ionChange)="onHourStartChange($event)">
-            @for (num of hourNumbers; track num) {
-              <ion-picker-column-option value="{{num}}">{{num}}</ion-picker-column-option>
-            }
-          </ion-picker-column>
-        </ion-picker>
-      </ion-col>
+    <ion-card-content>
+      Here's a small text description for the card content. Nothing more, nothing less.
+    </ion-card-content>
+  </ion-card>
+  }
 
-      <ion-col size="3">
-        <ion-picker>
-          <ion-picker-column (ionChange)="onMinuteStartChange($event)">
-            @for (num of minuteNumbers; track num) {
-              @if (num < 10)
-              {
-                <ion-picker-column-option value="{{num}}">0{{num}}</ion-picker-column-option>
-              }
-              @else
-              {
-                <ion-picker-column-option value="{{num}}">{{num}}</ion-picker-column-option>
-              }
-            }
-          </ion-picker-column>
-        </ion-picker>
-      </ion-col>
 
-      <ion-col size="3">    
-        <ion-picker>
-          <ion-picker-column>
-            <ion-picker-column-option value="AM">AM</ion-picker-column-option>
-            <ion-picker-column-option value="PM">PM</ion-picker-column-option>
-          </ion-picker-column>
-        </ion-picker>
-      </ion-col>
-
-    </ion-row>
-
-    <ion-row>
-
-      <ion-col size="3">    
-        <ion-picker>
-          <ion-picker-column (ionChange)="onHourEndChange($event)">
-            @for (num of hourNumbers; track num) {
-              <ion-picker-column-option value="{{num}}">{{num}}</ion-picker-column-option>
-            }
-          </ion-picker-column>
-        </ion-picker>
-      </ion-col>
-
-      <ion-col size="3">
-        <ion-picker>
-          <ion-picker-column (ionChange)="onMinuteEndChange($event)">
-            @for (num of minuteNumbers; track num) {
-              @if (num < 10)
-              {
-                <ion-picker-column-option value="{{num}}">0{{num}}</ion-picker-column-option>
-              }
-              @else
-              {
-                <ion-picker-column-option value="{{num}}">{{num}}</ion-picker-column-option>
-              }
-            }
-          </ion-picker-column>
-        </ion-picker>
-      </ion-col>
-
-      <ion-col size="3">    
-        <ion-picker>
-          <ion-picker-column>
-            <ion-picker-column-option value="AM">AM</ion-picker-column-option>
-            <ion-picker-column-option value="PM">PM</ion-picker-column-option>
-          </ion-picker-column>
-        </ion-picker>
-      </ion-col>
-
-    </ion-row>
-  </ion-grid> -->
+  
 
   <!-- <ion-item>
     <ion-button (click)="onSaveOvernightSleep()">Save Log</ion-button>
@@ -114,3 +48,9 @@
   </ion-item> -->
 
 </ion-content>
+
+<ion-footer [translucent]="true">
+  <ion-toolbar>
+    <ion-button expand="full" color="primary" (click)="presentModal()">Add Sleep Log</ion-button>
+  </ion-toolbar>
+</ion-footer>
