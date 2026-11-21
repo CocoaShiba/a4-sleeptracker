@@ -4,6 +4,8 @@ export class OvernightSleepData extends SleepData {
 	private sleepStart:Date;
 	private sleepEnd:Date;
 
+	override kind:string = "overnightSleep";
+
 	constructor(sleepStart:Date, sleepEnd:Date) {
 		super();
 		this.sleepStart = sleepStart;
@@ -23,5 +25,51 @@ export class OvernightSleepData extends SleepData {
 
 	override dateString():string {
 		return "Night of " + this.sleepStart.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+	}
+
+	override get start() {
+		var line:string = "";
+
+		var hours:number = this.sleepStart.getHours();
+		var AMPM:string = "am";
+		if (hours > 12)
+		{
+			hours -= 12;
+			AMPM = "pm";
+		}
+
+		if (this.sleepStart.getMinutes() < 10)
+		{
+			line = `${hours}:0${this.sleepStart.getMinutes().toString()}${AMPM}`
+		}
+		else
+		{
+			line = `${hours}:${this.sleepStart.getMinutes().toString()}${AMPM}`
+		}
+		
+		return line;
+	}
+
+	override get end() {
+		var line:string = "";
+
+		var hours:number = this.sleepEnd.getHours();
+		var AMPM:string = "am";
+		if (hours > 12)
+		{
+			hours -= 12;
+			AMPM = "pm";
+		}
+
+		if (this.sleepEnd.getMinutes() < 10)
+		{
+			line = `${hours}:0${this.sleepEnd.getMinutes().toString()}${AMPM}`
+		}
+		else
+		{
+			line = `${hours}:${this.sleepEnd.getMinutes().toString()}${AMPM}`
+		}
+
+		return line;
 	}
 }

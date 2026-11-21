@@ -15,6 +15,8 @@ export class StanfordSleepinessData extends SleepData {
 
 	private loggedValue:number;
 
+	override kind:string = "stanfordSleepiness";
+
 	constructor(loggedValue:number, loggedAt:Date = new Date()) {
 		super();
 		this.loggedValue = loggedValue;

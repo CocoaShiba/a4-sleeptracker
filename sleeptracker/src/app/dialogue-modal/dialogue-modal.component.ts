@@ -18,11 +18,11 @@ export class DialogueModalComponent  implements OnInit {
   hourNumbers: number[] = [];
 	minuteNumbers: number[] = [];
 
-	hourStart:number = 0;
+	hourStart:number = 12;
 	minuteStart:number = 0;
   isStartPM:boolean = false;
 
-	hourEnd:number = 0;
+	hourEnd:number = 12;
 	minuteEnd:number = 0;
   isEndPM:boolean = false;
 
@@ -87,6 +87,15 @@ export class DialogueModalComponent  implements OnInit {
 
     var overnightSleepData:OvernightSleepData = new OvernightSleepData(goToBed, wakeUp)
     this.sleepService.logOvernightData(overnightSleepData);
+
+
+    	this.hourStart = 12;
+      this.minuteStart = 0;
+      this.isStartPM = false;
+
+      this.hourEnd = 12;
+      this.minuteEnd = 0;
+      this.isEndPM = false;
 
     this.modalController.dismiss();
 	}
