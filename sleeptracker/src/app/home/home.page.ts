@@ -116,8 +116,8 @@ export class HomePage {
 			componentProps: {name: "IN4MATX 133"}
 		}).then((modal) => {
 			modal.present();
-			modal.onDidDismiss().then((data)=>{
-				console.log(data);
+			modal.onDidDismiss().then(()=>{
+				console.log(this.allSleepData);
 				// “Hello from modal!”
 			})
 		});

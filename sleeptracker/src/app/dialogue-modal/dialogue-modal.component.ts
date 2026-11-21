@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton, IonPicker, IonPickerColumn, IonPickerColumnOption, IonGrid, IonRow, IonCol, IonModal, IonButtons } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { ModalController } from '@ionic/angular/standalone';
+import { OvernightSleepData } from '../data/overnight-sleep-data';
+import { SleepService } from '../services/sleep.service';
 
 @Component({
   selector: 'app-dialogue-modal',
@@ -11,18 +13,22 @@ import { ModalController } from '@ionic/angular/standalone';
 })
 export class DialogueModalComponent  implements OnInit {
 
+  twelveHoursInMs:number = 12 * 60 * 60 * 1000; 
+  
   hourNumbers: number[] = [];
 	minuteNumbers: number[] = [];
 
 	hourStart:number = 0;
 	minuteStart:number = 0;
+  isStartPM:boolean = false;
 
 	hourEnd:number = 0;
 	minuteEnd:number = 0;
+  isEndPM:boolean = false;
 
 
-  constructor(public modalController:ModalController) {
-    for (var i = 1; i < 13; i++)
+  constructor(public modalController:ModalController, public sleepService:SleepService) {
+    for (var i = 1; i < 12; i++)
     {
       this.hourNumbers.push(i);
     }
@@ -45,6 +51,10 @@ export class DialogueModalComponent  implements OnInit {
 		this.minuteStart = event.detail.value;
 	}
 
+  onAMPMStartChange(event: CustomEvent) {
+    this.isStartPM = event.detail.value;
+  }
+
 	onHourEndChange(event: CustomEvent) {
 		this.hourEnd = event.detail.value;
 	}
@@ -53,8 +63,32 @@ export class DialogueModalComponent  implements OnInit {
 		this.minuteEnd = event.detail.value;
 	}
 
+  onAMPMEndChange(event: CustomEvent) {
+    this.isEndPM = event.detail.value;
+  }
+
+
 	onSaveOvernightSleep() {
-		console.log(this.hourStart + this.minuteStart + ", " + this.hourEnd + this.minuteEnd);
+    var goToBed = new Date();
+		goToBed.setDate(goToBed.getDate() - 1); //set to yesterday
+		goToBed.setHours(this.hourStart, this.minuteStart, 0); //1:03am
+    if (this.isStartPM)
+    {
+      goToBed = new Date(goToBed.getTime() + this.twelveHoursInMs);
+    }
+
+		var wakeUp = new Date();
+    wakeUp.setDate(wakeUp.getDate()); //set to today
+		wakeUp.setHours(this.hourEnd, this.minuteEnd, 0); //1:03am
+    if (this.isEndPM)
+    {
+      wakeUp = new Date(wakeUp.getTime() + this.twelveHoursInMs);
+    }
+
+    var overnightSleepData:OvernightSleepData = new OvernightSleepData(goToBed, wakeUp)
+    this.sleepService.logOvernightData(overnightSleepData);
+
+    this.modalController.dismiss();
 	}
 
 
