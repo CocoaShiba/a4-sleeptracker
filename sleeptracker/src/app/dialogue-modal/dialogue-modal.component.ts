@@ -57,11 +57,6 @@ export class DialogueModalComponent  implements OnInit {
     var hour:number = Number(string.substring(0, 2));
     var minute:number = Number(string.substring(3, 5));
 
-    console.log(hour);
-    console.log(minute);
-    // console.log(hour);
-    // console.log(minute)
-
     this.sleepDate.setHours(hour, minute);
   }
 
@@ -77,33 +72,6 @@ export class DialogueModalComponent  implements OnInit {
     this.wakeDate.setHours(hour, minute);
   }
 
-  // onHourStartChange(event: CustomEvent) {
-  //   	this.hourStart = event.detail.value;
-  //   // this.setDecorativeText();
-  //   // this.storage.set(this.seasonKey, this.pickerValue);
-  // 	}
-
-	// onMinuteStartChange(event: CustomEvent) {
-	// 	this.minuteStart = event.detail.value;
-	// }
-
-  // onAMPMStartChange(event: CustomEvent) {
-  //   this.startAMPM = event.detail.value;
-  // }
-
-	// onHourEndChange(event: CustomEvent) {
-	// 	this.hourEnd = event.detail.value;
-	// }
-
-	// onMinuteEndChange(event: CustomEvent) {
-	// 	this.minuteEnd = event.detail.value;
-	// }
-
-  // onAMPMEndChange(event: CustomEvent) {
-  //   this.endAMPM = event.detail.value;
-  // }
-
-
 	onSaveOvernightSleep() {
     if (this.sleepDate.getHours() >= 12) //User slept at PM yesterday; set day to yesterday
     {
@@ -112,11 +80,11 @@ export class DialogueModalComponent  implements OnInit {
 
     var overnightSleepData:OvernightSleepData = new OvernightSleepData(this.sleepDate, this.wakeDate)
     
-    console.log("total slept time :" + overnightSleepData.totalTimeSleptMinutes);
+    // console.log("total slept time :" + overnightSleepData.totalTimeSleptMinutes);
     if (overnightSleepData.totalTimeSleptMinutes > 960) { //Are you sure you slept for over 16 hours?
 
         this.alertController.create({
-        header: 'Super sleepy?',
+        header: 'Are you sure?',
         //subHeader: 'Subtitle',
         message: 'You have slept for over 16 hours. Is this correct?',
         buttons: [

@@ -78,27 +78,6 @@ export class HomePage {
 		}
 	}
 
-	presentAlert() {
-		this.alertController.create({
-		header: 'Super sleepy?',
-		//subHeader: 'Subtitle',
-		message: 'You have slept for over 16 hours. Is this correct?',
-		buttons: [
-		{
-			text: 'Cancel',
-			role: 'cancel',
-		},
-		{
-			text: 'Confirm',
-			handler: () => {
-				console.log('Confirmed!');
-			},
-		},
-		],
-		}).then((alert) => {
-			alert.present();
-		});
-	}
 
 	// async shareStuff () {
 	// 	// try/catch because error is thrown if user cancells sharing operation
