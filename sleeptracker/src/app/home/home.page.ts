@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { IonHeader, IonFooter, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton, IonPicker, IonPickerColumn, IonPickerColumnOption, IonGrid, IonRow, IonCol, IonModal, 
-		 IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle} from '@ionic/angular/standalone';
+		 IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonIcon} from '@ionic/angular/standalone';
 import { SleepService } from '../services/sleep.service';
 import { SleepData } from '../data/sleep-data';
 import { OvernightSleepData } from '../data/overnight-sleep-data';
@@ -14,7 +14,10 @@ import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular/standalone';
-// import { alertController } from '@ionic/core';
+
+import { addIcons } from 'ionicons';
+import { sunnyOutline } from 'ionicons/icons';
+import { moonOutline } from 'ionicons/icons';
 
 import { DialogueModalComponent } from '../dialogue-modal/dialogue-modal.component';
 import { StanfordSleepinessModalComponent } from '../stanford-sleepiness-modal/stanford-sleepiness-modal.component';
@@ -24,33 +27,39 @@ import { StanfordSleepinessModalComponent } from '../stanford-sleepiness-modal/s
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   imports: [IonPicker, IonFooter, IonButton, IonInput, IonItem, IonHeader, IonToolbar, IonTitle, IonContent, FormsModule, IonPickerColumn, IonPickerColumnOption, IonGrid, IonRow, IonCol, IonModal, 
-	        IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, DialogueModalComponent, StanfordSleepinessModalComponent],
+	        IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonIcon, DialogueModalComponent, StanfordSleepinessModalComponent],
 })
 export class HomePage {
 
 	welcomeString:string = "";
+	welcomeIcon:string = "";
 	currentTime:Date;
 
   	constructor(public sleepService:SleepService, public modalController:ModalController, public alertController:AlertController) {
 		this.currentTime = new Date();
 
-		console.log(this.currentTime.getHours());
-
 		if (this.currentTime.getHours() < 12) { //6:00AM-12:00PM (morning)
 			this.welcomeString = "Good Morning.";
+			this.welcomeIcon = "sunny-outline";
 		}
 		if (this.currentTime.getHours() < 6) { //12:00AM-6:00PM (night)
 			this.welcomeString = "Good Night.";
+			this.welcomeIcon = "moon-outline";
 		}
 		if (this.currentTime.getHours() >= 12) { //12:00PM-5:00PM (afternoon)
 			this.welcomeString = "Good Afternoon.";
+			this.welcomeIcon = "sunny-outline";
 		}
 		if (this.currentTime.getHours() >= 17) { //5:00PM-5:00PM (evening)
 			this.welcomeString = "Good Evening.";
+			this.welcomeIcon = "moon-outline";
 		}
 		if (this.currentTime.getHours() >= 20) { //8:00PM-12:00AM (night)
 			this.welcomeString = "Good Night.";
+			this.welcomeIcon = "moon-outline";
 		}
+
+		addIcons({ sunnyOutline, moonOutline });
 	}
 
 	ngOnInit() {

@@ -7,16 +7,20 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
 
-
-  <h1>{{welcomeString}}</h1>
-  <!-- <ion-button expand="full" color="primary" (click)="presentAlert()">save</ion-button> -->
-
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="auto">
+        <!-- <ion-item> -->
+          <h1>
+            {{welcomeString}}
+            <ion-icon name="{{welcomeIcon}}"></ion-icon>
+          </h1>
+        <!-- </ion-item> -->
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
 
   @for (log of allSleepData; track $index)
   {
