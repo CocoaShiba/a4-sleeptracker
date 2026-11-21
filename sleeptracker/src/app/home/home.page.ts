@@ -28,25 +28,29 @@ import { StanfordSleepinessModalComponent } from '../stanford-sleepiness-modal/s
 })
 export class HomePage {
 
-	name:string = "";
+	welcomeString:string = "";
+	currentTime:Date;
 
   	constructor(public sleepService:SleepService, public modalController:ModalController, public alertController:AlertController) {
+		this.currentTime = new Date();
 
-		Preferences.get({
-		key: 'name'
-		}).then((resultName) => {
-			console.log(`name: ${resultName.value}`);
-			// result value is a string | null,
-			// so:
-			// 1. ensure nameValue is not null
-			// 2. use JavaScript String() fn to convert it to string
-			if(resultName.value)
-			{
-				console.log(`${resultName.value} not null`);
-				this.name = String(resultName.value);
-				// this.namedSaved.set(true);
-			}
-		});
+		console.log(this.currentTime.getHours());
+
+		if (this.currentTime.getHours() < 12) { //6:00AM-12:00PM (morning)
+			this.welcomeString = "Good Morning.";
+		}
+		if (this.currentTime.getHours() < 6) { //12:00AM-6:00PM (night)
+			this.welcomeString = "Good Night.";
+		}
+		if (this.currentTime.getHours() >= 12) { //12:00PM-5:00PM (afternoon)
+			this.welcomeString = "Good Afternoon.";
+		}
+		if (this.currentTime.getHours() >= 17) { //5:00PM-5:00PM (evening)
+			this.welcomeString = "Good Evening.";
+		}
+		if (this.currentTime.getHours() >= 20) { //8:00PM-12:00AM (night)
+			this.welcomeString = "Good Night.";
+		}
 	}
 
 	ngOnInit() {
