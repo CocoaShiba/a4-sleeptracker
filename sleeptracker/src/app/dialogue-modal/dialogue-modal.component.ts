@@ -43,16 +43,17 @@ export class DialogueModalComponent  implements OnInit {
     var hour:number = Number(string.substring(string.length - 8, string.length - 6));
     var minute:number = Number(string.substring(string.length - 5, string.length - 3));
 
-    console.log(hour);
-    console.log(minute);
-
     this.wakeDate.setHours(hour, minute);
   }
 
 	onSaveOvernightSleep() { //When user clicks "save log"
+
+    var yesterdayFlag:boolean = false;
+
     if (this.sleepDate.getHours() >= 12) //User slept at PM yesterday; set day to yesterday
     {
       this.sleepDate.setDate(this.sleepDate.getDate() - 1);
+      yesterdayFlag = true;
     }
 
     var overnightSleepData:OvernightSleepData = new OvernightSleepData(this.sleepDate, this.wakeDate)
@@ -67,7 +68,11 @@ export class DialogueModalComponent  implements OnInit {
             text: 'Cancel',
             role : 'cancel',
             handler: () => {
-              this.sleepDate.setDate(this.sleepDate.getDate() + 1);
+              if (yesterdayFlag)
+              {
+                this.sleepDate.setDate(this.sleepDate.getDate() + 1);
+              }
+              
             },
           },
           {
