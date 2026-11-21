@@ -14,7 +14,7 @@ import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular/standalone';
-import { Share } from '@capacitor/share';
+// import { alertController } from '@ionic/core';
 
 import { DialogueModalComponent } from '../dialogue-modal/dialogue-modal.component';
 import { StanfordSleepinessModalComponent } from '../stanford-sleepiness-modal/stanford-sleepiness-modal.component';
@@ -30,7 +30,7 @@ export class HomePage {
 
 	name:string = "";
 
-  	constructor(public sleepService:SleepService, public modalController:ModalController) {
+  	constructor(public sleepService:SleepService, public modalController:ModalController, public alertController:AlertController) {
 
 		Preferences.get({
 		key: 'name'
@@ -58,31 +58,60 @@ export class HomePage {
 		return SleepService.AllSleepData;
 	}
 
-	async saveName() {
-		console.log(`saved name: ${this.name}`);
+	get AllOvernightData() {
+		return SleepService.AllOvernightData;
+	}
+
+	get AllSleepinessData() {
+		return SleepService.AllSleepinessData;
+	}
+
+	async save() {
+		console.log(this.AllSleepinessData[0].loggedAt.getHours().toString());
 		try {
-		await Preferences.set({
-			key: 'name',
-			value: "asd"
-		});
-		} catch (e)
-		{
-		console.log(e);
+			await Preferences.set({
+				key: '1',
+				value: this.AllSleepinessData[0].loggedAt.getHours().toString()
+			});
+		} catch (e) {
+			console.log(e);
 		}
 	}
 
-	async shareStuff () {
-		// try/catch because error is thrown if user cancells sharing operation
-		try {
-		await Share.share({
-			title: 'Share coordinates',
-			text: 'Just in case you wanted to know, these are my current coordinates. Perhaps this is an emergency location sharing app idk. My current coordinates are',
-			dialogTitle: 'Share my coordinates',
+	presentAlert() {
+		this.alertController.create({
+		header: 'Super sleepy?',
+		//subHeader: 'Subtitle',
+		message: 'You have slept for over 16 hours. Is this correct?',
+		buttons: [
+		{
+			text: 'Cancel',
+			role: 'cancel',
+		},
+		{
+			text: 'Confirm',
+			handler: () => {
+				console.log('Confirmed!');
+			},
+		},
+		],
+		}).then((alert) => {
+			alert.present();
 		});
-		} catch (e) {
-		console.log(e);
-		}
 	}
+
+	// async shareStuff () {
+	// 	// try/catch because error is thrown if user cancells sharing operation
+	// 	try {
+	// 	await Share.share({
+	// 		title: 'Share coordinates',
+	// 		text: 'Just in case you wanted to know, these are my current coordinates. Perhaps this is an emergency location sharing app idk. My current coordinates are',
+	// 		dialogTitle: 'Share my coordinates',
+	// 	});
+	// 	} catch (e) {
+	// 	console.log(e);
+	// 	}
+	// }
 
 	presentOvernightSleepModal() {
 		this.modalController.create({

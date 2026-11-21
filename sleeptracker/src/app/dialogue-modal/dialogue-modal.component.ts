@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ModalController } from '@ionic/angular/standalone';
 import { OvernightSleepData } from '../data/overnight-sleep-data';
 import { SleepService } from '../services/sleep.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-dialogue-modal',
@@ -17,6 +18,8 @@ export class DialogueModalComponent  implements OnInit {
   
   sleepDate: Date;
   wakeDate: Date;
+
+  alreadySetToYesterdayFlag:boolean = false;
   // hourNumbers: number[] = [];
 	// minuteNumbers: number[] = [];
 
@@ -29,11 +32,12 @@ export class DialogueModalComponent  implements OnInit {
   // endAMPM:string = "AM";
 
 
-  constructor(public modalController:ModalController, public sleepService:SleepService) {
+  constructor(public modalController:ModalController, public sleepService:SleepService, public alertController:AlertController) {
     this.sleepDate = new Date();
     this.sleepDate.setHours(22);
     this.sleepDate.setMinutes(0);
     this.wakeDate = new Date();
+    this.alreadySetToYesterdayFlag = true;
     // for (var i = 1; i < 12; i++)
     // {
     //   this.hourNumbers.push(i);
@@ -101,41 +105,52 @@ export class DialogueModalComponent  implements OnInit {
 
 
 	onSaveOvernightSleep() {
-    // var goToBed = new Date();
-    // if (this.startAMPM == "PM")
-    // {
-    //   goToBed.setDate(goToBed.getDate() - 1); //set to yesterday
-    // }
-    // else
-    // {
-    //   goToBed.setDate(goToBed.getDate());
-    // }
-		 
-		// goToBed.setHours(this.hourStart, this.minuteStart, 0); //1:03am
-    // if (this.startAMPM == "PM")
-    // {
-    //   // console.log("ADDING 12 TO START");
-    //   goToBed = new Date(goToBed.getTime() + this.twelveHoursInMs);
-    // }
-
-		// var wakeUp = new Date();
-    // wakeUp.setDate(wakeUp.getDate()); //set to today
-		// wakeUp.setHours(this.hourEnd, this.minuteEnd, 0); //1:03am
-    // if (this.endAMPM == "PM")
-    // {
-    //   // console.log("ADDING 12 TO END");
-    //   // console.log(this.endAMPM);
-    //   wakeUp = new Date(wakeUp.getTime() + this.twelveHoursInMs);
-    // }
-
     if (this.sleepDate.getHours() >= 12) //User slept at PM yesterday; set day to yesterday
     {
       this.sleepDate.setDate(this.sleepDate.getDate() - 1);
     }
 
     var overnightSleepData:OvernightSleepData = new OvernightSleepData(this.sleepDate, this.wakeDate)
-    // console.log(goToBed);
-    this.sleepService.logOvernightData(overnightSleepData);
+    
+    console.log("total slept time :" + overnightSleepData.totalTimeSleptMinutes);
+    if (overnightSleepData.totalTimeSleptMinutes > 960) { //Are you sure you slept for over 16 hours?
+
+        this.alertController.create({
+        header: 'Super sleepy?',
+        //subHeader: 'Subtitle',
+        message: 'You have slept for over 16 hours. Is this correct?',
+        buttons: [
+        {
+          text: 'Cancel',
+          role : 'cancel',
+          handler: () => {
+            // console.log('Cancel!');
+            this.sleepDate.setDate(this.sleepDate.getDate() + 1);
+            // this.sleepService.logOvernightData(overnightSleepData);
+            // this.modalController.dismiss();
+          },
+        },
+        {
+          text: 'Confirm',
+          handler: () => {
+            //console.log('Confirmed!');
+            this.sleepService.logOvernightData(overnightSleepData);
+            this.modalController.dismiss();
+          },
+        },
+        ],
+        }).then((alert) => {
+          alert.present();
+        });
+      
+    }
+    else
+    {
+      this.sleepService.logOvernightData(overnightSleepData);
+      this.modalController.dismiss();
+    }
+
+    //this.sleepService.logOvernightData(overnightSleepData);
 
     // this.hourStart = 0;
     // this.minuteStart = 0;
@@ -145,7 +160,7 @@ export class DialogueModalComponent  implements OnInit {
     // this.minuteEnd = 0;
     // this.endAMPM = "AM";
 
-    this.modalController.dismiss();
+    //this.modalController.dismiss();
 	}
 
 

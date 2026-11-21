@@ -23,6 +23,10 @@ export class StanfordSleepinessData extends SleepData {
 		this.loggedAt = loggedAt;
 	}
 	
+	get value() {
+		return this.loggedValue;
+	}
+
 	// override get sleepinessTime() {
 	// 	if (this.loggedAt == null)
 	// 	{
