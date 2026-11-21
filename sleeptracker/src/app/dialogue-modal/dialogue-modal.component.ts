@@ -9,7 +9,7 @@ import { SleepService } from '../services/sleep.service';
   selector: 'app-dialogue-modal',
   templateUrl: './dialogue-modal.component.html',
   styleUrls: ['./dialogue-modal.component.scss'],
-  imports: [IonPicker, IonButton, IonInput, IonItem, IonHeader, IonToolbar, IonTitle, IonContent, FormsModule, IonPickerColumn, IonPickerColumnOption, IonGrid, IonRow, IonCol, IonModal, IonButtons, DialogueModalComponent],
+  imports: [IonPicker, IonButton, IonInput, IonItem, IonHeader, IonToolbar, IonTitle, IonContent, FormsModule, IonPickerColumn, IonPickerColumnOption, IonGrid, IonRow, IonCol, IonModal, IonButtons],
 })
 export class DialogueModalComponent  implements OnInit {
 
@@ -98,7 +98,7 @@ export class DialogueModalComponent  implements OnInit {
 
     var overnightSleepData:OvernightSleepData = new OvernightSleepData(goToBed, wakeUp)
     this.sleepService.logOvernightData(overnightSleepData);
-    
+
     this.hourStart = 0;
     this.minuteStart = 0;
     this.startAMPM = "AM";

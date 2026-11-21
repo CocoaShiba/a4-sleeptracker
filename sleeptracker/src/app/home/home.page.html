@@ -14,7 +14,7 @@
   </ion-header> -->
 
 
-    <h1>Good morning</h1>
+  <h1>Good morning</h1>
 
 
   
@@ -46,8 +46,6 @@
         <p>{{log.dateString()}}</p>
       </ion-card-content>
     }
-
-    
   </ion-card>
   }
 
@@ -69,6 +67,7 @@
 
 <ion-footer [translucent]="true">
   <ion-toolbar>
-    <ion-button expand="full" color="primary" (click)="presentModal()">Add Sleep Log</ion-button>
+    <ion-button expand="full" color="primary" (click)="presentOvernightSleepModal()">Log Overnight Sleep</ion-button>
+    <ion-button expand="full" color="primary" (click)="presentSleepinessModal()">Log Sleepiness</ion-button>
   </ion-toolbar>
 </ion-footer>

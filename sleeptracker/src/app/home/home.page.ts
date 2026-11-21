@@ -16,39 +16,20 @@ import { ActionSheetController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular/standalone';
 
 import { DialogueModalComponent } from '../dialogue-modal/dialogue-modal.component';
+import { StanfordSleepinessModalComponent } from '../stanford-sleepiness-modal/stanford-sleepiness-modal.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   imports: [IonPicker, IonFooter, IonButton, IonInput, IonItem, IonHeader, IonToolbar, IonTitle, IonContent, FormsModule, IonPickerColumn, IonPickerColumnOption, IonGrid, IonRow, IonCol, IonModal, 
-	        IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, DialogueModalComponent],
+	        IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, DialogueModalComponent, StanfordSleepinessModalComponent],
 })
 export class HomePage {
 
 	name:string = "";
-	
-	// hourNumbers: number[] = [];
-	// minuteNumbers: number[] = [];
-
-	// hourStart:number = 0;
-	// minuteStart:number = 0;
-
-	// hourEnd:number = 0;
-	// minuteEnd:number = 0;
 
   	constructor(public sleepService:SleepService, public modalController:ModalController) {
-	
-
-		// for (var i = 1; i < 13; i++)
-		// {
-		// 	this.hourNumbers.push(i);
-		// }
-
-		// for (var i = 0; i < 60; i++)
-		// {
-		// 	this.minuteNumbers.push(i);
-		// }
 
 		Preferences.get({
 		key: 'name'
@@ -89,37 +70,27 @@ export class HomePage {
 		}
 	}
 
-	// onHourStartChange(event: CustomEvent) {
-    // 	this.hourStart = event.detail.value;
-    // // this.setDecorativeText();
-    // // this.storage.set(this.seasonKey, this.pickerValue);
-  	// }
-
-	// onMinuteStartChange(event: CustomEvent) {
-	// 	this.minuteStart = event.detail.value;
-	// }
-
-	// onHourEndChange(event: CustomEvent) {
-	// 	this.hourEnd = event.detail.value;
-	// }
-
-	// onMinuteEndChange(event: CustomEvent) {
-	// 	this.minuteEnd = event.detail.value;
-	// }
-
-	// onSaveOvernightSleep() {
-	// 	console.log(this.hourStart + this.minuteStart + ", " + this.hourEnd + this.minuteEnd);
-	// }
-
-
-	presentModal() {
+	presentOvernightSleepModal() {
 		this.modalController.create({
 			component: DialogueModalComponent,
 			componentProps: {name: "IN4MATX 133"}
 		}).then((modal) => {
 			modal.present();
 			modal.onDidDismiss().then(()=>{
-				console.log(this.allSleepData);
+				//console.log(this.allSleepData);
+				// “Hello from modal!”
+			})
+		});
+	}
+
+	presentSleepinessModal() {
+		this.modalController.create({
+			component: StanfordSleepinessModalComponent,
+			componentProps: {name: "IN4MATX 133"}
+		}).then((modal) => {
+			modal.present();
+			modal.onDidDismiss().then(()=>{
+				//console.log(this.allSleepData);
 				// “Hello from modal!”
 			})
 		});
