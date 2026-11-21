@@ -30,9 +30,9 @@ export class StanfordSleepinessData extends SleepData {
 	// 	}
 	// 	return this.loggedAt.getDay().toString();
 	// }
-	override dateString():string {
-		return this.loggedAt.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric'});
-	}
+	// override dateString():string {
+	// 	return this.loggedAt.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric'});
+	// }
 
 	// override get sleepinessTime() {
 	// 	var line:string = "";

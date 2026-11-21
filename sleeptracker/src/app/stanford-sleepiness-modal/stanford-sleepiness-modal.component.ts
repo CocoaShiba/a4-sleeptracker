@@ -30,11 +30,18 @@ export class StanfordSleepinessModalComponent  implements OnInit {
   ngOnInit() {}
 
   onSleepinessChange(event: CustomEvent) {
-    this.stanfordSleepinessValue = 
+    this.stanfordSleepinessValue = event.detail.value;
   }
 
   onDateChange(event: CustomEvent) {
-    this.dateValue = event.detail.value;
+    var string:string = event.detail.value;
+
+    var hour:number = Number(string.substring(string.length - 8, string.length - 6));
+    var minute:number = Number(string.substring(string.length - 5, string.length - 3));
+
+    this.dateValue.setHours(hour, minute);
+    console.log(this.dateValue);
+    //this.dateValue.setHours(string.substring(string.length - 8, string.length))
   }
   
   onSaveSleepiness() {

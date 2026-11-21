@@ -17,7 +17,7 @@ export class SleepData {
 	}
 
 	dateString():string {
-		return this.loggedAt.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric'});
+		return "On " + this.loggedAt.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'});
 	}
 
 	// get overnightSleepStartTime() {
@@ -28,7 +28,5 @@ export class SleepData {
 	// 	return "";
 	// }
 
-	get sleepinessTime() {
-		return "aaaaa";
-	}
+
 }

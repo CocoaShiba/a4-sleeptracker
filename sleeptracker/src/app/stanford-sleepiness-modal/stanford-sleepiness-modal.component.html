@@ -12,13 +12,7 @@
       </ion-grid>
       {{stanfordSleepinessScales[stanfordSleepinessValue]}}
 
-      <ion-datetime-button datetime="datetime"></ion-datetime-button>
-
-      <ion-modal [keepContentsMounted]="true">
-        <ng-template>
-          <ion-datetime (ionChange)="onDateChange($event)" [showDefaultButtons]="true" id="datetime"></ion-datetime>
-        </ng-template>
-      </ion-modal>
+      <ion-datetime (ionChange)="onDateChange($event)" presentation="time"></ion-datetime>
       <!-- </ion-col> -->
 
       <!-- <ion-col size="3">
