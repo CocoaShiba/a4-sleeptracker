@@ -40,7 +40,7 @@ export class StanfordSleepinessModalComponent  implements OnInit {
     var minute:number = Number(string.substring(string.length - 5, string.length - 3));
 
     this.dateValue.setHours(hour, minute);
-    console.log(this.dateValue);
+    console.log(string);
     //this.dateValue.setHours(string.substring(string.length - 8, string.length))
   }
   
