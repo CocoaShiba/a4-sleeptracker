@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton, IonPicker, IonPickerColumn, IonPickerColumnOption, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton, IonPicker, IonPickerColumn, IonPickerColumnOption, IonGrid, IonRow, IonCol, IonModal, IonButtons } from '@ionic/angular/standalone';
 import { SleepService } from '../services/sleep.service';
 import { SleepData } from '../data/sleep-data';
 import { OvernightSleepData } from '../data/overnight-sleep-data';
@@ -13,13 +13,19 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonPicker, IonButton, IonInput, IonItem, IonHeader, IonToolbar, IonTitle, IonContent, FormsModule, IonPickerColumn, IonPickerColumnOption, IonGrid, IonRow, IonCol],
+  imports: [IonPicker, IonButton, IonInput, IonItem, IonHeader, IonToolbar, IonTitle, IonContent, FormsModule, IonPickerColumn, IonPickerColumnOption, IonGrid, IonRow, IonCol, IonModal, IonButtons],
 })
 export class HomePage {
 
 	name:string = "";
 	hourNumbers: number[] = [];
 	minuteNumbers: number[] = [];
+
+	hourStart:number = 0;
+	minuteStart:number = 0;
+
+	hourEnd:number = 0;
+	minuteEnd:number = 0;
 
   	constructor(public sleepService:SleepService) {
 
@@ -70,5 +76,29 @@ export class HomePage {
 		{
 		console.log(e);
 		}
+	}
+
+	onHourStartChange(event: CustomEvent) {
+    	this.hourStart = event.detail.value;
+		console.log(this.hourStart);
+    // this.setDecorativeText();
+    // this.storage.set(this.seasonKey, this.pickerValue);
+  	}
+
+	onMinuteStartChange(event: CustomEvent) {
+		this.minuteStart = event.detail.value;
+		console.log(this.minuteStart);
+	}
+
+	onHourEndChange(event: CustomEvent) {
+		this.hourEnd = event.detail.value;
+	}
+
+	onMinuteEndChange(event: CustomEvent) {
+		this.minuteEnd = event.detail.value;
+	}
+
+	onSaveOvernightSleep() {
+		console.log(this.hourStart + this.minuteStart + ", " + this.hourEnd + this.minuteEnd);
 	}
 }
