@@ -20,11 +20,11 @@ export class DialogueModalComponent  implements OnInit {
 
 	hourStart:number = 0;
 	minuteStart:number = 0;
-  isStartPM:boolean = false;
+  startAMPM:string = "AM";
 
 	hourEnd:number = 0;
 	minuteEnd:number = 0;
-  isEndPM:boolean = false;
+  endAMPM:string = "AM";
 
 
   constructor(public modalController:ModalController, public sleepService:SleepService) {
@@ -52,7 +52,7 @@ export class DialogueModalComponent  implements OnInit {
 	}
 
   onAMPMStartChange(event: CustomEvent) {
-    this.isStartPM = event.detail.value;
+    this.startAMPM = event.detail.value;
   }
 
 	onHourEndChange(event: CustomEvent) {
@@ -64,16 +64,14 @@ export class DialogueModalComponent  implements OnInit {
 	}
 
   onAMPMEndChange(event: CustomEvent) {
-    this.isEndPM = event.detail.value;
+    this.endAMPM = event.detail.value;
   }
 
 
 	onSaveOvernightSleep() {
     var goToBed = new Date();
-    console.log(this.isStartPM);
-    if (this.isStartPM)
+    if (this.startAMPM == "PM")
     {
-      console.log("HERE");
       goToBed.setDate(goToBed.getDate() - 1); //set to yesterday
     }
     else
@@ -82,32 +80,32 @@ export class DialogueModalComponent  implements OnInit {
     }
 		 
 		goToBed.setHours(this.hourStart, this.minuteStart, 0); //1:03am
-    if (this.isStartPM)
+    if (this.startAMPM == "PM")
     {
+      // console.log("ADDING 12 TO START");
       goToBed = new Date(goToBed.getTime() + this.twelveHoursInMs);
     }
 
 		var wakeUp = new Date();
     wakeUp.setDate(wakeUp.getDate()); //set to today
 		wakeUp.setHours(this.hourEnd, this.minuteEnd, 0); //1:03am
-    if (this.isEndPM)
+    if (this.endAMPM == "PM")
     {
-      console.log("ADDING 12 TO END");
-      console.log(this.isEndPM);
+      // console.log("ADDING 12 TO END");
+      // console.log(this.endAMPM);
       wakeUp = new Date(wakeUp.getTime() + this.twelveHoursInMs);
     }
 
     var overnightSleepData:OvernightSleepData = new OvernightSleepData(goToBed, wakeUp)
     this.sleepService.logOvernightData(overnightSleepData);
+    
+    this.hourStart = 0;
+    this.minuteStart = 0;
+    this.startAMPM = "AM";
 
-
-    	this.hourStart = 0;
-      this.minuteStart = 0;
-      this.isStartPM = false;
-
-      this.hourEnd = 0;
-      this.minuteEnd = 0;
-      this.isEndPM = false;
+    this.hourEnd = 0;
+    this.minuteEnd = 0;
+    this.endAMPM = "AM";
 
     this.modalController.dismiss();
 	}
