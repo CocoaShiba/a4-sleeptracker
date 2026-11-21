@@ -37,6 +37,10 @@ export class OvernightSleepData extends SleepData {
 			hours -= 12;
 			AMPM = "pm";
 		}
+		else if (hours == 0)
+		{
+			hours = 12;
+		}
 
 		if (this.sleepStart.getMinutes() < 10)
 		{
@@ -54,10 +58,15 @@ export class OvernightSleepData extends SleepData {
 		var line:string = "";
 
 		var hours:number = this.sleepEnd.getHours();
+		// console.log(hours);
 		var AMPM:string = "am";
 		if (hours > 12)
 		{
 			hours -= 12;
+			AMPM = "pm";
+		}
+		else if (hours == 12)
+		{
 			AMPM = "pm";
 		}
 

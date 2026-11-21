@@ -6,7 +6,7 @@
       <ion-col size="3">    
         <ion-picker>
           <ion-picker-column (ionChange)="onHourStartChange($event)">
-            <ion-picker-column-option value=12>12</ion-picker-column-option>
+            <ion-picker-column-option value="0">12</ion-picker-column-option>
             @for (num of hourNumbers; track num) {
               <ion-picker-column-option value="{{num}}">{{num}}</ion-picker-column-option>
             }
@@ -47,7 +47,7 @@
       <ion-col size="3">    
         <ion-picker>
           <ion-picker-column (ionChange)="onHourEndChange($event)">
-            <ion-picker-column-option value=12>12</ion-picker-column-option>
+            <ion-picker-column-option value="0">12</ion-picker-column-option>
             @for (num of hourNumbers; track num) {
               <ion-picker-column-option value="{{num}}">{{num}}</ion-picker-column-option>
             }

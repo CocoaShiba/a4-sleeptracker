@@ -18,11 +18,11 @@ export class DialogueModalComponent  implements OnInit {
   hourNumbers: number[] = [];
 	minuteNumbers: number[] = [];
 
-	hourStart:number = 12;
+	hourStart:number = 0;
 	minuteStart:number = 0;
   isStartPM:boolean = false;
 
-	hourEnd:number = 12;
+	hourEnd:number = 0;
 	minuteEnd:number = 0;
   isEndPM:boolean = false;
 
@@ -53,6 +53,7 @@ export class DialogueModalComponent  implements OnInit {
 
   onAMPMStartChange(event: CustomEvent) {
     this.isStartPM = event.detail.value;
+    console.log(this.isStartPM);
   }
 
 	onHourEndChange(event: CustomEvent) {
@@ -65,12 +66,22 @@ export class DialogueModalComponent  implements OnInit {
 
   onAMPMEndChange(event: CustomEvent) {
     this.isEndPM = event.detail.value;
+    console.log(this.isEndPM);
   }
 
 
 	onSaveOvernightSleep() {
+    console.log("here");
     var goToBed = new Date();
-		goToBed.setDate(goToBed.getDate() - 1); //set to yesterday
+    if (this.isStartPM)
+    {
+      goToBed.setDate(goToBed.getDate() - 1); //set to yesterday
+    }
+    else
+    {
+      goToBed.setDate(goToBed.getDate());
+    }
+		 
 		goToBed.setHours(this.hourStart, this.minuteStart, 0); //1:03am
     if (this.isStartPM)
     {
@@ -89,11 +100,11 @@ export class DialogueModalComponent  implements OnInit {
     this.sleepService.logOvernightData(overnightSleepData);
 
 
-    	this.hourStart = 12;
+    	this.hourStart = 0;
       this.minuteStart = 0;
       this.isStartPM = false;
 
-      this.hourEnd = 12;
+      this.hourEnd = 0;
       this.minuteEnd = 0;
       this.isEndPM = false;
 
