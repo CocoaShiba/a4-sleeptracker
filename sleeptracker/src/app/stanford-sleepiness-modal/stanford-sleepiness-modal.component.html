@@ -1,60 +1,45 @@
 <ion-content [fullscreen]="true">
 
-  <!-- <ion-grid>
-    <ion-row>
-      <ion-col size="15">     -->
+      <ion-item class="custom-item">
+        <ion-label>How are you feeling?</ion-label>
+      </ion-item>
+
       <ion-grid>
         <ion-row class="ion-justify-content-center">
+
           <ion-col size="10">
             <ion-range aria-label="Range with ticks" (ionChange)="onSleepinessChange($event)" [ticks]="true" [snaps]="true" [min]="1" [max]="7"></ion-range>
           </ion-col>
+
         </ion-row>
       </ion-grid>
-      {{stanfordSleepinessScales[stanfordSleepinessValue]}}
+      <div class="center-text">{{stanfordSleepinessScales[stanfordSleepinessValue]}}</div>
 
-      <ion-datetime (ionChange)="onDateChange($event)" presentation="time"></ion-datetime>
-      <!-- </ion-col> -->
+      <ion-item class="custom-item">
+        <ion-label>Log Time:</ion-label>
+      </ion-item>
 
-      <!-- <ion-col size="3">
-        <ion-picker>
-          <ion-picker-column (ionChange)="onMinuteStartChange($event)">
-            @for (num of minuteNumbers; track num) {
-              @if (num < 10)
-              {
-                <ion-picker-column-option value="{{num}}">0{{num}}</ion-picker-column-option>
-              }
-              @else
-              {
-                <ion-picker-column-option value="{{num}}">{{num}}</ion-picker-column-option>
-              }
-            }
-          </ion-picker-column>
-        </ion-picker>
-      </ion-col>
+      <ion-grid>
+        <ion-row class="ion-justify-content-center">
 
-      <ion-col size="3">    
-        <ion-picker>
-          <ion-picker-column (ionChange)="onAMPMStartChange($event)">
-            <ion-picker-column-option value="AM">AM</ion-picker-column-option>
-            <ion-picker-column-option value="PM">PM</ion-picker-column-option>
-          </ion-picker-column>
-        </ion-picker>
-      </ion-col> -->
+          <ion-col size="6">
+            <ion-datetime (ionChange)="onDateChange($event)" presentation="time"></ion-datetime>
+          </ion-col>
 
-    <!-- </ion-row>
-
-  </ion-grid> -->
+        </ion-row>
+      </ion-grid>
+      <!-- <ion-datetime (ionChange)="onDateChange($event)" presentation="time"></ion-datetime> -->
 
   <ion-grid>
-    <ion-row>
+    <ion-row class="ion-justify-content-center">
 
-      <ion-item>
+      <ion-col size="auto">
         <ion-button (click)="onCancel()">Cancel</ion-button>
-      </ion-item>
+      </ion-col>
 
-      <ion-item>
+      <ion-col size="auto">
         <ion-button (click)="onSaveSleepiness()">Save Log</ion-button>
-      </ion-item>
+      </ion-col>
 
     </ion-row>
   </ion-grid>

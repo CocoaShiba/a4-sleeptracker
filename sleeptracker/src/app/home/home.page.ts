@@ -18,6 +18,7 @@ import { ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { sunnyOutline } from 'ionicons/icons';
 import { moonOutline } from 'ionicons/icons';
+import { bookOutline } from 'ionicons/icons'
 
 import { DialogueModalComponent } from '../dialogue-modal/dialogue-modal.component';
 import { StanfordSleepinessModalComponent } from '../stanford-sleepiness-modal/stanford-sleepiness-modal.component';
@@ -59,7 +60,7 @@ export class HomePage {
 			this.welcomeIcon = "moon-outline";
 		}
 
-		addIcons({ sunnyOutline, moonOutline });
+		addIcons({ sunnyOutline, moonOutline, bookOutline });
 	}
 
 	ngOnInit() {
